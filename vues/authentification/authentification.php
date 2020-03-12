@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <style>
         .authentification{
             margin-top:50px;

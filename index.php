@@ -1,3 +1,10 @@
+<?php
+ session_start();
+//inclusion des dependances de projet
+ include_once('core/core.php'); 
+ 
+ d_vardump($_SESSION);
+?>
 <!DOCTYPE html>
 <html lang="fr">
     <head>
