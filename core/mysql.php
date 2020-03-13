@@ -29,7 +29,7 @@
     }
 
     private function query($requete){
-        
+        //var_dump($requete);
         $this->connectDB();
         return mysqli_query($this->linkDB,$requete);
 
@@ -43,20 +43,42 @@
     }
 
     public function get_produit($id){
-        $retprod=$this->query("SELECT `titre`, `description` FROM `produit` WHERE `idp` =$id");
-        var_dump($retprod);
+        $retprod=$this->query("SELECT `idp`, `titre`, `description`, `prix`, `imgurl` FROM `produit` WHERE `idp` =$id");
+        //var_dump($retprod);
         if($retprod->num_rows==0)return NULL;
         $result=mysqli_fetch_array($retprod);
         //var_dump($result);
         return $result;
-        
-            
+    }
 
+    public function get_produits($titre=''){
+        $arr=array();
+        $retprod=$this->query("SELECT `idp`, `titre`, `description`, `prix`, `imgurl` FROM `produit` WHERE `titre` LIKE '%$titre%'");
+        //var_dump($retprod);
+        
+        if($retprod->num_rows==0)return NULL;
+
+        while($uneligne=mysqli_fetch_array($retprod))
+        {
+            array_push($arr,$uneligne);
+        }
+        //var_dump($result);
+        return $arr;
+    }
+
+    public function update_image($id,$filepath){
+        $retimage=$this->query("UPDATE `produit` SET `imgurl`='$filepath' WHERE `idp` =$id");
+        // var_dump($retimage);
+        // if($retimage->num_rows==0)return NULL;
+        // $result=mysqli_fetch_array($retimage);
+        // //var_dump($result);
+        // return $result;
     }
 }
     $db=new BaseDeDonnees();
     //var_dump($db->authent('azerty','test1'));
-    var_dump($db->get_produit(1));
+    //var_dump($db->get_produit(1));
     //var_dump($db);
+    //var_dump($db->get_produits('edding'));
   
 ?>
